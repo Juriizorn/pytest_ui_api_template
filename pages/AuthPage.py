@@ -1,0 +1,31 @@
+from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
+class AuthPage:
+    def __init__(self, driver: WebDriver) -> None:
+        self.__url = ("https://id.atlassian.com/login?application=trello&"
+                      "continue=https%3A%2F%2Ftrello.com%2Fauth%2Fatlassian"
+                      "%2Fcallback%3Fdisplay%3DeyJ2ZXJpZmljYXRpb25TdHJhdGV"
+                      "neSI6InNvZnQifQ%253D%253D&display=eyJ2ZXJpZmljYXRpb"
+                      "25TdHJhdGVneSI6InNvZnQifQ%3D%3D")
+        self.__driver = driver
+
+    def go(self):
+        self.__driver.get(self.__url)
+
+    def login_as(self, email: str, password: str):
+        (WebDriverWait(self.__driver, 10).until
+         (EC.visibility_of_element_located
+          ((By.CSS_SELECTOR, "#username-uid1"))))
+        (self.__driver.find_element
+         (By.CSS_SELECTOR, "#username-uid1").send_keys(email))
+        self.__driver.find_element(By.CSS_SELECTOR, "#login-submit").click()
+
+        (WebDriverWait(self.__driver, 10).until
+         (EC.visibility_of_element_located((By.CSS_SELECTOR, "#password"))))
+        (self.__driver.find_element
+         (By.CSS_SELECTOR, "#password").send_keys(password))
+        self.__driver.find_element(By.CSS_SELECTOR, "#login-submit").click()
