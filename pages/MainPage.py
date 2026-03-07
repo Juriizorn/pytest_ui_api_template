@@ -13,11 +13,14 @@ class MainPage:
     def get_current_url(self) -> str:
         (WebDriverWait(self.__driver, 10)
          .until(EC.visibility_of_element_located
-         ((By.CSS_SELECTOR, "[title='Юрий (user61946865)']"))))
+         ((By.CSS_SELECTOR, "div[title='Jurii (user61946865)']"))))
         return self.__driver.current_url
 
     @allure.step("Открыть меню аккаунта")
     def open_menu(self):
+        (WebDriverWait(self.__driver, 10)
+         .until(EC.visibility_of_element_located
+                ((By.CSS_SELECTOR, "button[data-testid=header-member-menu-button]"))))
         (self.__driver.find_element
          (By.CSS_SELECTOR, "button[data-testid=header-member-menu-button]")
          .click())

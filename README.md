@@ -25,7 +25,10 @@
 - ./pages
 - ./api
 - ./db
-- test_config.ini - настройки для тестов
+- ./configuration - провайдер настроек
+- - test_config.ini - настройки для тестов
+- ./test_data - провайдер тестовых данных
+- - test_data.json
 
 ### Полезные ссылки
 
